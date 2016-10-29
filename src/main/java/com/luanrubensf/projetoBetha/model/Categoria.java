@@ -1,8 +1,6 @@
 
 package com.luanrubensf.projetoBetha.model;
 
-import com.luanrubensf.projetoBetha.reflection.PersistentClass;
-import com.luanrubensf.projetoBetha.reflection.PersistentField;
 import com.luanrubensf.projetoBetha.utils.Parseable;
 import com.luanrubensf.projetoBetha.utils.Utils;
 import java.util.Map;
