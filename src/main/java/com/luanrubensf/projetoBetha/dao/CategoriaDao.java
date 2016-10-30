@@ -1,7 +1,6 @@
 package com.luanrubensf.projetoBetha.dao;
 
 import com.luanrubensf.projetoBetha.model.Categoria;
-import com.luanrubensf.projetoBetha.reflection.ReflectionDao;
 import com.luanrubensf.projetoBetha.utils.ConnectionUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

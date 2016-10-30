@@ -5,12 +5,13 @@ package com.luanrubensf.projetoBetha.model;
  * @author Rubens
  */
 public class Game {
+
     private Long id;
     private String name;
     private String descricao;
     private Integer anoLancamento;
     private boolean finalizado;
-    
+
     private Categoria categoria;
 
     public Long getId() {
@@ -59,5 +60,12 @@ public class Game {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{\"id\": %s,\"nome\": \"%s\",\"descricao\":\"%s\","
+                + "\"finalizado\": %s,\"ano\": %s, \"categoria\": %s}",
+                id, name, descricao, finalizado, anoLancamento, categoria);
     }
 }

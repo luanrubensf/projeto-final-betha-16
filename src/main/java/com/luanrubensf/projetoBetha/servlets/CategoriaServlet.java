@@ -4,7 +4,6 @@ import com.luanrubensf.projetoBetha.dao.CategoriaDao;
 import com.luanrubensf.projetoBetha.model.Categoria;
 import com.luanrubensf.projetoBetha.utils.Utils;
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
