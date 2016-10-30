@@ -14,7 +14,7 @@ public class Game implements Parseable {
     private String nome;
     private String descricao;
     private Integer anoLancamento;
-    private Boolean finalizado;
+    private boolean finalizado;
 
     private Categoria categoria;
 

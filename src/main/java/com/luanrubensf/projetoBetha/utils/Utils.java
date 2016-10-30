@@ -31,7 +31,7 @@ public class Utils {
     }
     
     public static Boolean parseBoolean(String value){
-        return isEmpty(value) ? null : Boolean.parseBoolean(value);
+        return Boolean.parseBoolean(value);
     }
     
     public static boolean isEmpty(String value) {
