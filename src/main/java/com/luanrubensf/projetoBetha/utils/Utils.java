@@ -26,6 +26,14 @@ public class Utils {
         return isEmpty(value) ? null : Long.parseLong(value);
     }
     
+    public static Integer parseInteger(String value){
+        return isEmpty(value) ? null : Integer.parseInt(value);
+    }
+    
+    public static Boolean parseBoolean(String value){
+        return isEmpty(value) ? null : Boolean.parseBoolean(value);
+    }
+    
     public static boolean isEmpty(String value) {
         return value == null || value.trim().isEmpty();
     }

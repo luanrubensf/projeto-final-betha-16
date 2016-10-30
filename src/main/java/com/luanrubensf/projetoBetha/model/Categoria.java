@@ -14,7 +14,14 @@ public class Categoria implements Parseable {
     private Long id;
 
     private String descricao;
+    
+    public Categoria(){
+    }
 
+    public Categoria(Long id){
+        this.id = id;
+    }
+    
     public Long getId() {        
         return id;
     }
