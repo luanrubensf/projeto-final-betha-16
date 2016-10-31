@@ -31,15 +31,18 @@
         function successSave() {
             resetForm();
             switchControllButtons(false);
-            notifyService.notifySuccess('Categoria salva com sucesso');
             _hideForm();
             loadData();
+            notifyService.notifySuccess('Categoria salva com sucesso');
         }
 
         function salvar() {
             switchControllButtons(true);
             var parametros = $('#formCadastroCategoria').serialize();
-            save(parametros).then(successSave, notifyError);
+
+            // $('#formCadastroCategoria').validate();
+
+           save(parametros).then(successSave, notifyError);
         }
 
         function removeCategoria(id) {

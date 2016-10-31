@@ -21,7 +21,7 @@ public class GameDao implements CrudOperations<Game> {
     private static final String SELECT = "SELECT * FROM games";
     private static final String DELETE = "DELETE FROM games";
     private static final String WHEREID = " WHERE id=? ";
-    private static final String WHERE_FINALIZADOS = "WHERE finalizado = ?";
+    private static final String WHERE_FINALIZADOS = "WHERE ifnalizado = ?";
     private static final String SEQUENCE = "SELECT NEXTVAL('seqgames')";
 
     @Override

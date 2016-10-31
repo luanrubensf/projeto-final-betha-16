@@ -69,7 +69,7 @@ public class Game implements Parseable {
     @Override
     public String toString() {
         return String.format("{\"id\": %s,\"nome\": \"%s\",\"descricao\":\"%s\","
-                + "\"finalizado\": %s,\"ano\": %s, \"categoria\": %s}",
+                + "\"finalizado\": %s,\"ano\": %s, \"categoria\": %s }",
                 id, nome, descricao, finalizado, anoLancamento, categoria);
     }
 
