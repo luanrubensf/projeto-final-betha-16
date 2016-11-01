@@ -5,6 +5,8 @@
     function gameController() {
 
         var categoriaId = 0;
+        var templateTable;
+        var notifyService = window.ctrlNotify;
 
         function _hideForm() {
             $('#divForm').hide();
@@ -47,10 +49,27 @@
             });
         }
 
+        function loadData() {
+            templateTable = templateTable || $('table.table tbody').html();
+            getList().then(function (data) {
+                window.ctrlTable.fillTable(templateTable, 'table.table tbody', data);
+            }, notifyError);
+        }
+
+        function notifyError(data){
+            notifyService.notifyError(data.responseText);
+        }
+
+        loadData();
+
         return {
             hideForm: _hideForm,
             showForm: _showForm,
         };
+
+        function getList() {
+            return $.getJSON('api/games');
+        }
     }
 
     $(function () {
