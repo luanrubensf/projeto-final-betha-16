@@ -8,9 +8,11 @@
 	<link rel="icon" href="favicon.ico">
 
 	<title>Cadastro de Games</title>
-
+	
 	<link href="resources/libs/css/bootstrap.min.css" rel="stylesheet">
 	<link href="resources/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	<link href="resources/libs/css/select2.min.css" rel="stylesheet">
+
 	<link href="resources/css/sys.css" rel="stylesheet">
 	<!--[if lt IE 9]><script src="../../resources/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 	<script src="resources/assets/js/ie-emulation-modes-warning.js"></script>
@@ -78,8 +80,18 @@
 					</div>
 					<div class="form-group">
 						<label for="ano" class="control-label col-sm-2">Ano lançamento</label>
-						<div class="col-sm-2">
+						<div class="col-md-4">
 							<input name="ano" class="form-control" maxlength="4" required/>
+						</div>
+						<label for="finalizado">Finalizado</label>
+						<div class="col-md-1">
+							<input type="checkbox" id="finalizado" name="finalizado">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="categoria" class="control-label col-md-2">Categoria</label>
+						<div class="col-md-6">
+							<select class="select" id="select-categorias"></select>
 						</div>
 					</div>
 					<div class="form-group text-right">
@@ -101,6 +113,7 @@
 	<script src="resources/assets/js/vendor/holder.min.js"></script>
 	<script src="resources/assets/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="resources/libs/js/bootstrap-notify.min.js"></script>
+	<script src="resources/libs/js/select2.min.js"></script>
 </body>
 
 </html>

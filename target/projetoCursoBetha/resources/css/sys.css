@@ -116,3 +116,8 @@ body#novo .nav-sidebar > .novo > a:focus {
   display: inline-block;
   border-radius: 50%;
 }
+
+
+.select {
+  width: 100%; 
+}
