@@ -39,10 +39,7 @@
         function salvar() {
             switchControllButtons(true);
             var parametros = $('#formCadastroCategoria').serialize();
-
-            // $('#formCadastroCategoria').validate();
-
-           save(parametros).then(successSave, notifyError);
+            save(parametros).then(successSave, notifyError);
         }
 
         function removeCategoria(id) {
@@ -69,7 +66,7 @@
             }, notifyError);
         }
 
-        function notifyError(data){
+        function notifyError(data) {
             notifyService.notifyError(data.responseText);
         }
 

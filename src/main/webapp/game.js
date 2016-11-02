@@ -24,19 +24,14 @@
             $('#select-categorias').select2('data', null);
         }
 
-        function _showForm() {
-            $('#divForm').show();
-
-            var id = $('input[name=id]').val();
-
+        function setSelect2(data) {
             $('#select-categorias').select2({
+                data: [data],
+                placeholder: 'Selecione uma categoria',
+                allowClear: true,
                 ajax: {
                     url: "api/categorias",
                     dataType: 'json',
-                    placeholder: "Select a customer",
-                    initSelection: function (element, callback) {
-                    },
-                    allowClear: true,
                     processResults: function (data, params) {
                         var result = [];
 
@@ -61,6 +56,12 @@
             });
         }
 
+        function _showForm() {
+            $('#divForm').show();
+
+            setSelect2();
+        }
+
         function successSave() {
             resetForm();
             switchControllButtons(false);
@@ -69,9 +70,29 @@
             notifyService.notifySuccess('Game salvo com sucesso');
         }
 
-        function errorSave(data){
+        function errorSave(data) {
             notifyError(data);
             switchControllButtons(false);
+        }
+
+        function fillForm(game) {
+            $('input[name=id]').val(game.id);
+            $('input[name=nome]').val(game.descricao);
+            $('textarea[name=descricao]').val(game.descricao);
+            $('input[name=ano]').val(game.ano);
+            $('input[name=finalizado]').prop('checked', game.finalizado);
+
+            if (game.categoria) {
+                game.categoria.text = game.categoria.descricao;
+                setSelect2(game.categoria);
+            }
+        }
+
+        function edit(id) {
+            get(id).then(function (data) {
+                fillForm(data);
+                _showForm();
+            }, notifyError);
         }
 
         function salvar() {
@@ -113,7 +134,7 @@
             showForm: _showForm,
             save: salvar,
             remove: removeGame,
-            //edit: edit
+            edit: edit
         };
 
         function getList() {

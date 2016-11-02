@@ -12,8 +12,16 @@
 
                 for (var property in linha) {
                     var regex = new RegExp('{{' + property + '}}', "g");
+                    
+                    var value = '';
 
-                    modelo = modelo.replace(regex, linha[property]);
+                    if(typeof(linha[property]) === 'object'){
+                        value = linha[property].nome || linha[property].descricao; 
+                    } else {
+                        value = linha[property];
+                    }
+
+                    modelo = modelo.replace(regex, value);
                 }
 
                 response += modelo;
