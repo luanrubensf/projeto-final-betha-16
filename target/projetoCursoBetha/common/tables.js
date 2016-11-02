@@ -9,9 +9,10 @@
             for (var i = 0; i < registros.length; i++) {
                 var linha = registros[i];
                 var modelo = templateTable;
-                
-               for (var property in linha)  {
-                   var regex = new RegExp('{{' + property + '}}', "g");
+
+                for (var property in linha) {
+                    var regex = new RegExp('{{' + property + '}}', "g");
+
                     modelo = modelo.replace(regex, linha[property]);
                 }
 

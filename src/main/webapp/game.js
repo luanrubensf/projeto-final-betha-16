@@ -8,8 +8,20 @@
         var templateTable;
         var notifyService = window.ctrlNotify;
 
+        function resetForm() {
+            $('#formCadastroGame').trigger("reset");
+            $('input[type=hidden]').val('');
+            $('#select-categorias').select2().val(null);
+        }
+
         function _hideForm() {
             $('#divForm').hide();
+        }
+
+        function switchControllButtons(disabled) {
+            $('#btnSalvar').prop('disabled', disabled);
+            $('#btnCancelar').prop('disabled', disabled);
+            $('#select-categorias').select2('data', null);
         }
 
         function _showForm() {
@@ -21,10 +33,10 @@
                 ajax: {
                     url: "api/categorias",
                     dataType: 'json',
-                    placeholder: {
-                        id: id || '-1',
-                        text: 'Select an option'
+                    placeholder: "Select a customer",
+                    initSelection: function (element, callback) {
                     },
+                    allowClear: true,
                     processResults: function (data, params) {
                         var result = [];
 
@@ -49,6 +61,40 @@
             });
         }
 
+        function successSave() {
+            resetForm();
+            switchControllButtons(false);
+            _hideForm();
+            loadData();
+            notifyService.notifySuccess('Game salvo com sucesso');
+        }
+
+        function errorSave(data){
+            notifyError(data);
+            switchControllButtons(false);
+        }
+
+        function salvar() {
+            switchControllButtons(true);
+            var parametros = $('#formCadastroGame').serialize();
+
+            if (categoriaId) {
+                parametros += '&categoria=' + categoriaId;
+            }
+
+            save(parametros).then(successSave, errorSave);
+        }
+
+        function removeGame(id) {
+            remove(id)
+                .then(function () {
+                    notifyService.notifySuccess('Game exluído com sucesso');
+                    loadData();
+                    resetForm();
+                    _hideForm();
+                }, notifyError);
+        }
+
         function loadData() {
             templateTable = templateTable || $('table.table tbody').html();
             getList().then(function (data) {
@@ -56,7 +102,7 @@
             }, notifyError);
         }
 
-        function notifyError(data){
+        function notifyError(data) {
             notifyService.notifyError(data.responseText);
         }
 
@@ -65,10 +111,28 @@
         return {
             hideForm: _hideForm,
             showForm: _showForm,
+            save: salvar,
+            remove: removeGame,
+            //edit: edit
         };
 
         function getList() {
             return $.getJSON('api/games');
+        }
+
+        function get(id) {
+            return $.getJSON('api/games?id=' + id);
+        }
+
+        function save(params) {
+            return $.post('api/games', params);
+        }
+
+        function remove(id) {
+            return $.ajax({
+                url: 'api/games?id=' + id,
+                method: 'DELETE'
+            });
         }
     }
 
