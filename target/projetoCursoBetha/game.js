@@ -24,9 +24,8 @@
             $('#select-categorias').select2('data', null);
         }
 
-        function setSelect2(data) {
+        function setSelect2() {
             $('#select-categorias').select2({
-                data: [data],
                 placeholder: 'Selecione uma categoria',
                 allowClear: true,
                 ajax: {
@@ -53,7 +52,8 @@
                 }
             }).on("select2:select", function (e) {
                 categoriaId = $(e.currentTarget).val();
-            });
+            })
+                .trigger('change');
         }
 
         function _showForm() {
@@ -77,21 +77,26 @@
 
         function fillForm(game) {
             $('input[name=id]').val(game.id);
-            $('input[name=nome]').val(game.descricao);
+            $('input[name=nome]').val(game.nome);
             $('textarea[name=descricao]').val(game.descricao);
             $('input[name=ano]').val(game.ano);
             $('input[name=finalizado]').prop('checked', game.finalizado);
 
             if (game.categoria) {
-                game.categoria.text = game.categoria.descricao;
-                setSelect2(game.categoria);
+                var templateSelect2 = '<option value="' + game.categoria.id + '" selected="true">' + game.categoria.descricao + '</option>';
+                $('#select-categorias').html(templateSelect2);
+                categoriaId = game.categoria.id;
+            } else {
+                $('#select-categorias').html('');
             }
+
+            setSelect2();
         }
 
         function edit(id) {
             get(id).then(function (data) {
-                fillForm(data);
                 _showForm();
+                fillForm(data);
             }, notifyError);
         }
 

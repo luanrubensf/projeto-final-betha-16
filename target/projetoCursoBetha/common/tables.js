@@ -16,7 +16,7 @@
                     var value = '';
 
                     if(typeof(linha[property]) === 'object'){
-                        value = linha[property].nome || linha[property].descricao; 
+                        value = linha[property] ? linha[property].nome || linha[property].descricao : ''; 
                     } else {
                         value = linha[property];
                     }

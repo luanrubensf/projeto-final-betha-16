@@ -27,12 +27,13 @@ public class CategoriaDao implements CrudOperations<Categoria> {
         entity.setId(nextId());
         Connection conn = ConnectionUtils.getConn();
         PreparedStatement pstm = conn.prepareStatement(INSERT);
-
-        pstm.setLong(1, entity.getId());
-        pstm.setString(2, entity.getDescricao());
-
-        pstm.execute();
-
+        try {
+            pstm.setLong(1, entity.getId());
+            pstm.setString(2, entity.getDescricao());
+            pstm.execute();
+        } finally {
+            conn.close();
+        }
         return findById(entity.getId());
     }
 
@@ -40,9 +41,14 @@ public class CategoriaDao implements CrudOperations<Categoria> {
         Connection conn = ConnectionUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(UPDATE + WHEREID);
 
-        stm.setString(1, entity.getDescricao());
-        stm.setLong(2, entity.getId());
-        stm.execute();
+        try {
+            stm.setString(1, entity.getDescricao());
+            stm.setLong(2, entity.getId());
+            stm.execute();
+
+        } finally {
+            conn.close();
+        }
 
         return findById(entity.getId());
     }
@@ -50,10 +56,14 @@ public class CategoriaDao implements CrudOperations<Categoria> {
     private Long nextId() throws SQLException {
         Connection conn = ConnectionUtils.getConn();
         Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery(SEQUENCE);
 
-        rs.next();
-        return rs.getLong(1);
+        try {
+            ResultSet rs = stm.executeQuery(SEQUENCE);
+            rs.next();
+            return rs.getLong(1);
+        } finally {
+            conn.close();
+        }
     }
 
     @Override
@@ -75,10 +85,15 @@ public class CategoriaDao implements CrudOperations<Categoria> {
 
         Connection conn = ConnectionUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(SELECT);
-        ResultSet rs = stm.executeQuery();
 
-        while (rs.next()) {
-            registros.add(parse(rs));
+        try {
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                registros.add(parse(rs));
+            }
+        } finally {
+            conn.close();
         }
 
         return registros;
@@ -97,11 +112,15 @@ public class CategoriaDao implements CrudOperations<Categoria> {
         Connection conn = ConnectionUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(SELECT + WHEREID);
 
-        stm.setLong(1, id);
+        try {
+            stm.setLong(1, id);
 
-        ResultSet rs = stm.executeQuery();
-        if (rs.next()) {
-            return parse(rs);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return parse(rs);
+            }
+        } finally {
+            conn.close();
         }
         return null;
     }
@@ -111,7 +130,11 @@ public class CategoriaDao implements CrudOperations<Categoria> {
         Connection conn = ConnectionUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(DELETE + WHEREID);
 
-        stm.setLong(1, id);
-        stm.execute();
+        try {
+            stm.setLong(1, id);
+            stm.execute();
+        } finally {
+            conn.close();
+        }
     }
 }
