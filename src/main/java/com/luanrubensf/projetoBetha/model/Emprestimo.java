@@ -2,7 +2,6 @@ package com.luanrubensf.projetoBetha.model;
 
 import com.luanrubensf.projetoBetha.utils.Utils;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  *
@@ -15,7 +14,7 @@ public class Emprestimo {
     private LocalDateTime data;
     private LocalDateTime dataDevolucao;
     private String observacao;
-    private List<ItemEmprestimo> itens;
+    private Game game;
 
     public Long getId() {
         return id;
@@ -57,18 +56,18 @@ public class Emprestimo {
         this.observacao = observacao;
     }
 
-    public List<ItemEmprestimo> getItens() {
-        return itens;
+    public Game getItens() {
+        return game;
     }
 
-    public void setItens(List<ItemEmprestimo> itens) {
-        this.itens = itens;
+    public void setItens(Game game) {
+        this.game = game;
     }
 
     @Override
     public String toString() {
         return String.format("{{\"id\":\"%s\", \"destino\": \"%s\", \"data\": \"%s\", \"dataDevolucao\": \"%s\"," + 
                 "\"observacao\": \"%s\", \"itens\": \"%s\"}", 
-                id, destino, Utils.nullString(data), Utils.nullString(dataDevolucao), observacao, itens);
+                id, destino, Utils.nullString(data), Utils.nullString(dataDevolucao), observacao, game);
     }
 }
