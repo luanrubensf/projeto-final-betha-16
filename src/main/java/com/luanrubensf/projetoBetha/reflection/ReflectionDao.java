@@ -1,7 +1,7 @@
 
 package com.luanrubensf.projetoBetha.reflection;
 
-import com.luanrubensf.projetoBetha.utils.ConnectionUtils;
+import com.luanrubensf.projetoBetha.dao.ConnectionUtils;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

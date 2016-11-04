@@ -1,7 +1,6 @@
 package com.luanrubensf.projetoBetha.dao;
 
 import com.luanrubensf.projetoBetha.model.Game;
-import com.luanrubensf.projetoBetha.utils.ConnectionUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

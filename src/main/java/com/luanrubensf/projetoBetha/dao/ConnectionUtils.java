@@ -1,4 +1,4 @@
-package com.luanrubensf.projetoBetha.utils;
+package com.luanrubensf.projetoBetha.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

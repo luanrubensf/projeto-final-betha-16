@@ -25,20 +25,33 @@ public class Utils {
     public static Long parseLong(String value) {
         return isEmpty(value) ? null : Long.parseLong(value);
     }
-    
-    public static Integer parseInteger(String value){
+
+    public static Integer parseInteger(String value) {
         return isEmpty(value) ? null : Integer.parseInt(value);
     }
-    
-    public static Boolean parseBoolean(String value){
+
+    public static Boolean parseBoolean(String value) {
         return Boolean.parseBoolean(value);
     }
-    
+
     public static boolean isEmpty(String value) {
         return value == null || value.trim().isEmpty();
     }
-    
-    public static String join(ArrayList<String> strings){
+
+    public static String join(ArrayList<String> strings) {
         return strings.toString().replace("[", "").replace("]", "");
+    }
+
+    public static boolean isNull(Object... values) {
+        for (Object value : values) {
+            if (value == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String nullString(Object value) {
+        return isNull(value) ? "" : value.toString();
     }
 }

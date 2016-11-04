@@ -1,6 +1,6 @@
 com\luanrubensf\projetoBetha\dao\CrudOperations.class
+com\luanrubensf\projetoBetha\model\ItemEmprestimo.class
 com\luanrubensf\projetoBetha\model\Game.class
-com\luanrubensf\projetoBetha\utils\ConnectionUtils.class
 com\luanrubensf\projetoBetha\utils\Parseable.class
 com\luanrubensf\projetoBetha\dao\GameDao.class
 com\luanrubensf\projetoBetha\servlets\CategoriaServlet.class
@@ -8,7 +8,9 @@ com\luanrubensf\projetoBetha\reflection\ReflectionDao.class
 com\luanrubensf\projetoBetha\reflection\ReflectionUtils.class
 com\luanrubensf\projetoBetha\dao\CategoriaDao.class
 com\luanrubensf\projetoBetha\servlets\GameServlet.class
+com\luanrubensf\projetoBetha\dao\ConnectionUtils.class
 com\luanrubensf\projetoBetha\reflection\PersistentClass.class
 com\luanrubensf\projetoBetha\reflection\PersistentField.class
+com\luanrubensf\projetoBetha\model\Emprestimo.class
 com\luanrubensf\projetoBetha\utils\Utils.class
 com\luanrubensf\projetoBetha\model\Categoria.class
