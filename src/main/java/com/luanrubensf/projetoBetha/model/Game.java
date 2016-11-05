@@ -17,6 +17,12 @@ public class Game implements Parseable {
     private boolean finalizado;
 
     private Categoria categoria;
+    
+    public Game(){}
+    
+    public Game(Long id){
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

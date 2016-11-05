@@ -1,5 +1,7 @@
 package com.luanrubensf.projetoBetha.utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -53,5 +55,9 @@ public class Utils {
 
     public static String nullString(Object value) {
         return isNull(value) ? "" : value.toString();
+    }
+    
+    public static LocalDateTime parseDate(String value, String pattern) {
+        return isEmpty(value) ? null : LocalDateTime.parse(value, DateTimeFormatter.ofPattern(pattern));
     }
 }

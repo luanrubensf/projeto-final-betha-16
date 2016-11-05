@@ -11,7 +11,8 @@ import java.util.logging.Logger;
  * @author Rubens
  */
 public class ConnectionUtils {
-     private static final String url = "jdbc:postgresql://localhost:5432/final-project";
+    
+    private static final String url = "jdbc:postgresql://localhost:5432/final-project";
     private static final String user = "postgres";
     private static final String pass = "postgres123";
     

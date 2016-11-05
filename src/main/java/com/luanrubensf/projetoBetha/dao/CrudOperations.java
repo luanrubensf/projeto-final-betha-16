@@ -8,8 +8,8 @@ import java.util.List;
  * @author Rubens
  */
 public interface CrudOperations<T> {
-    T persist(T entity) throws SQLException;
-    List<T> findAll() throws SQLException;
-    T findById(Long id) throws SQLException;
-    void delete(Long id) throws SQLException;
+    T persist(T entity) throws Exception ;
+    List<T> findAll() throws Exception;
+    T findById(Long id) throws Exception;
+    void delete(Long id) throws Exception;
 }
