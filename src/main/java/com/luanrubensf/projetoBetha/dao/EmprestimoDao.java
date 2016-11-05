@@ -159,7 +159,7 @@ public class EmprestimoDao implements CrudOperations<Emprestimo> {
         }
     }
 
-    private void validate(Emprestimo entity) throws Exception {
+    public void validate(Emprestimo entity) throws Exception {
         if (Utils.isEmpty(entity.getDestino())) {
             throw new Exception("Nome de destino não pode ser nule");
         }
