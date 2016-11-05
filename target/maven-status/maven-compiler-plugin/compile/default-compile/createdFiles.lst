@@ -1,6 +1,7 @@
 com\luanrubensf\projetoBetha\dao\CrudOperations.class
 com\luanrubensf\projetoBetha\model\Game.class
 com\luanrubensf\projetoBetha\utils\Parseable.class
+com\luanrubensf\projetoBetha\servlets\EmprestimoServlet.class
 com\luanrubensf\projetoBetha\dao\EmprestimoDao.class
 com\luanrubensf\projetoBetha\dao\GameDao.class
 com\luanrubensf\projetoBetha\servlets\CategoriaServlet.class

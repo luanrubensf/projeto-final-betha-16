@@ -68,8 +68,8 @@ public class Emprestimo implements Parseable {
 
     @Override
     public String toString() {
-        return String.format("{{\"id\":\"%s\", \"destino\": \"%s\", \"data\": \"%s\", \"dataDevolucao\": \"%s\"," + 
-                "\"observacao\": \"%s\", \"itens\": \"%s\"}", 
+        return String.format("{\"id\":\"%s\", \"destino\": \"%s\", \"emissao\": \"%s\", \"devolucao\": \"%s\"," + 
+                "\"observacao\": \"%s\", \"game\": %s}", 
                 id, destino, Utils.nullString(emissao), Utils.nullString(devolucao), observacao, game);
     }
     
@@ -79,7 +79,7 @@ public class Emprestimo implements Parseable {
         destino = dados.get("destino");
         observacao = dados.get("observacao");
         emissao = Utils.parseDate(dados.get("emissao"), "dd/MM/yyyy HH:mm:ss");
-        devolucao = Utils.parseDate(dados.get("aprovacao"), "dd/MM/yyyy HH:mm:ss");
+        devolucao = Utils.parseDate(dados.get("devolucao"), "dd/MM/yyyy HH:mm:ss");
         game = Utils.isEmpty(dados.get("game")) ? null : new Game(Utils.parseLong(dados.get("game")));
     }
 }

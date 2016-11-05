@@ -5,6 +5,7 @@
   "globals": {
     "window": false,
     "$": false,
-    "ctrl": false
+    "ctrl": false,
+    "moment": false
   }
 }

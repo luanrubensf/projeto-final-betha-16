@@ -1,6 +1,7 @@
 package com.luanrubensf.projetoBetha.dao;
 
 import com.luanrubensf.projetoBetha.model.Emprestimo;
+import com.luanrubensf.projetoBetha.utils.Utils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +28,9 @@ public class EmprestimoDao implements CrudOperations<Emprestimo> {
     @Override
     public Emprestimo persist(Emprestimo entity) throws Exception {
         Emprestimo emprestimo;
+        
+        validate(entity);
+        
         if (entity.getId() == null) {
             emprestimo = insert(entity);
         } else {
@@ -121,7 +125,7 @@ public class EmprestimoDao implements CrudOperations<Emprestimo> {
             pstm.setLong(1, entity.getId());
             pstm.setString(2, entity.getDestino());
             pstm.setTimestamp(3, Timestamp.valueOf(entity.getEmissao() == null ? LocalDateTime.now() : entity.getEmissao()));
-            pstm.setTimestamp(4, Timestamp.valueOf(entity.getDevolucao()));
+            pstm.setObject(4, entity.getDevolucao() != null ? Timestamp.valueOf(entity.getDevolucao()) : null);
             pstm.setString(5, entity.getObservacao());
             pstm.setObject(6, entity.getGame().getId());
 
@@ -141,7 +145,7 @@ public class EmprestimoDao implements CrudOperations<Emprestimo> {
         try {
             pstm.setString(1, entity.getDestino());
             pstm.setTimestamp(2, Timestamp.valueOf(entity.getEmissao() == null ? LocalDateTime.now() : entity.getEmissao()));
-            pstm.setTimestamp(3, Timestamp.valueOf(entity.getDevolucao()));
+            pstm.setObject(3, entity.getDevolucao() != null ? Timestamp.valueOf(entity.getDevolucao()) : null);
             pstm.setString(4, entity.getObservacao());
             pstm.setObject(5, entity.getGame().getId());
 
@@ -152,6 +156,18 @@ public class EmprestimoDao implements CrudOperations<Emprestimo> {
             return findById(entity.getId());
         } finally {
             conn.close();
+        }
+    }
+
+    private void validate(Emprestimo entity) throws Exception {
+        if (Utils.isEmpty(entity.getDestino())) {
+            throw new Exception("Nome de destino não pode ser nule");
+        }
+        if (entity.getGame() == null || entity.getGame().getId() == null) {
+            throw new Exception("Game não pode ser nulo");
+        }
+        if (entity.getDevolucao() != null && entity.getEmissao().isAfter(entity.getDevolucao())) {
+            throw new Exception("Data de devolução deve ser maior que emissão");
         }
     }
 }

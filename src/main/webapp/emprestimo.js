@@ -2,34 +2,46 @@
 
     'use strict';
 
-    function gameController() {
+    function emprestimoController() {
 
-        var categoriaId = 0;
+        var gameId = 0;
         var templateTable;
         var notifyService = window.ctrlNotify;
 
+        setDateTimePicker();
+
+        function setDateTimePicker() {
+            $('#emissao').datetimepicker({
+                format: 'dd/mm/yyyy HH:ii:ss'
+            });
+            $('#devolucao').datetimepicker({
+                format: 'dd/mm/yyyy HH:ii:ss'
+            });
+        }
+
         function resetForm() {
-            $('#formCadastroGame').trigger("reset");
+            $('#formCadastroEmprestimo').trigger("reset");
             $('input[type=hidden]').val('');
-            $('#select-categorias').select2().val(null);
+            $('#select-games').select2().val(null);
         }
 
         function _hideForm() {
             $('#divForm').hide();
+             $('#select-games').html('');
         }
 
         function switchControllButtons(disabled) {
             $('#btnSalvar').prop('disabled', disabled);
             $('#btnCancelar').prop('disabled', disabled);
-            $('#select-categorias').select2('data', null);
+            $('#select-games').select2('data', null);
         }
 
         function setSelect2() {
-            $('#select-categorias').select2({
-                placeholder: 'Selecione uma categoria',
+            $('#select-games').select2({
+                placeholder: 'Selecione um game',
                 allowClear: true,
                 ajax: {
-                    url: "api/categorias",
+                    url: "api/games",
                     dataType: 'json',
                     processResults: function (data, params) {
                         var result = [];
@@ -39,7 +51,7 @@
                         }
 
                         data.forEach(function (item) {
-                            item.text = item.descricao;
+                            item.text = item.nome;
 
                             if (item.text.toLowerCase().indexOf(params.term) >= 0) {
                                 result.push(item);
@@ -51,10 +63,10 @@
                     }
                 }
             }).on("select2:select", function (e) {
-                categoriaId = $(e.currentTarget).val();
+                gameId = $(e.currentTarget).val();
             })
             .on('select2:unselect', function(){
-                categoriaId = null;
+                gameId = null;
             })
                 .trigger('change');
         }
@@ -70,7 +82,7 @@
             switchControllButtons(false);
             _hideForm();
             loadData();
-            notifyService.notifySuccess('Game salvo com sucesso');
+            notifyService.notifySuccess('Empréstimo salvo com sucesso');
         }
 
         function errorSave(data) {
@@ -78,19 +90,22 @@
             switchControllButtons(false);
         }
 
-        function fillForm(game) {
-            $('input[name=id]').val(game.id);
-            $('input[name=nome]').val(game.nome);
-            $('textarea[name=descricao]').val(game.descricao);
-            $('input[name=ano]').val(game.ano);
-            $('input[name=finalizado]').prop('checked', game.finalizado);
+        function fillForm(emprestimo) {
+            $('input[name=id]').val(emprestimo.id);
+            $('input[name=destino]').val(emprestimo.destino);
+            $('textarea[name=observacao]').val(emprestimo.observacao);
+            $('#emissao').val(moment(emprestimo.emissao).format('DD/MM/YYYY HH:mm:ss'));
+            
+            if(emprestimo.devolucao) {
+                $('#devolucao').val(moment(emprestimo.devolucao).format('DD/MM/YYYY HH:mm:ss'));
+            }
 
-            if (game.categoria) {
-                var templateSelect2 = '<option value="' + game.categoria.id + '" selected="true">' + game.categoria.descricao + '</option>';
-                $('#select-categorias').html(templateSelect2);
-                categoriaId = game.categoria.id;
+            if (emprestimo.game) {
+                var templateSelect2 = '<option value="' + emprestimo.game.id + '" selected="true">' + emprestimo.game.nome + '</option>';
+                $('#select-games').html(templateSelect2);
+                gameId = emprestimo.game.id;
             } else {
-                $('#select-categorias').html('');
+                $('#select-games').html('');
             }
 
             setSelect2();
@@ -105,19 +120,19 @@
 
         function salvar() {
             switchControllButtons(true);
-            var parametros = $('#formCadastroGame').serialize();
+            var parametros = $('#formCadastroEmprestimo').serialize();
 
-            if (categoriaId) {
-                parametros += '&categoria=' + categoriaId;
+            if (gameId) {
+                parametros += '&game=' + gameId;
             }
 
             save(parametros).then(successSave, errorSave);
         }
 
-        function removeGame(id) {
+        function removeEmprestimo(id) {
             remove(id)
                 .then(function () {
-                    notifyService.notifySuccess('Game exluído com sucesso');
+                    notifyService.notifySuccess('Empréstimo exluído com sucesso');
                     loadData();
                     resetForm();
                     _hideForm();
@@ -141,32 +156,32 @@
             hideForm: _hideForm,
             showForm: _showForm,
             save: salvar,
-            remove: removeGame,
+            remove: removeEmprestimo,
             edit: edit
         };
 
         function getList() {
-            return $.getJSON('api/games');
+            return $.getJSON('api/emprestimos');
         }
 
         function get(id) {
-            return $.getJSON('api/games?id=' + id);
+            return $.getJSON('api/emprestimos?id=' + id);
         }
 
         function save(params) {
-            return $.post('api/games', params);
+            return $.post('api/emprestimos', params);
         }
 
         function remove(id) {
             return $.ajax({
-                url: 'api/games?id=' + id,
+                url: 'api/emprestimos?id=' + id,
                 method: 'DELETE'
             });
         }
     }
 
     $(function () {
-        window.ctrl = gameController();
+        window.ctrl = emprestimoController();
         $('#btnSalvar').click(function () {
             ctrl.save();
         });

@@ -53,6 +53,9 @@
             }).on("select2:select", function (e) {
                 categoriaId = $(e.currentTarget).val();
             })
+            .on('select2:unselect', function(){
+                categoriaId = null;
+            })
                 .trigger('change');
         }
 

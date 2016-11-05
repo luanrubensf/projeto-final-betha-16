@@ -20,7 +20,7 @@ public class GameDao implements CrudOperations<Game> {
     private static final String SELECT = "SELECT * FROM games";
     private static final String DELETE = "DELETE FROM games";
     private static final String WHEREID = " WHERE id=? ";
-    private static final String WHERE_FINALIZADOS = "WHERE ifnalizado = ?";
+    private static final String WHERE_FINALIZADOS = " WHERE finalizado = true";
     private static final String SEQUENCE = "SELECT NEXTVAL('seqgames')";
 
     @Override
@@ -101,14 +101,13 @@ public class GameDao implements CrudOperations<Game> {
         }
     }
 
-    public List<Game> findFinalizados(Boolean isFinalizado) throws SQLException {
+    public List<Game> findFinalizados() throws SQLException {
         List<Game> games = new ArrayList<>();
 
         Connection conn = ConnectionUtils.getConn();
         PreparedStatement pstm = conn.prepareStatement(SELECT + WHERE_FINALIZADOS);
 
         try {
-            pstm.setBoolean(1, isFinalizado);
             ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {
