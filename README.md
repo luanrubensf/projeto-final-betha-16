@@ -1,4 +1,11 @@
 # projeto-final-betha-16
-Projeto final de curso de Java Web. 
-Front-end desenvolvido com Javascript, HTML e CSS
-Back-end desenvolvido com Java.
+
+A final project of a course about JavaEE.
+
+## front-end
+
+It was used only Javascript, HTML and CSS, since it wasn't allowed to use a front-end framework.
+
+## back-end
+
+It was developed using Java language and Maven. Is wasn't allowed to use some Java frameworks, so it was built using only servlets.
